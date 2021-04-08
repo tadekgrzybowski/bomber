@@ -34,11 +34,19 @@ class Bomber:
                     self.player.moving_right = True
                 if event.key == pygame.K_LEFT:
                     self.player.moving_left = True
+                if event.key == pygame.K_UP:
+                    self.player.moving_up = True
+                if event.key == pygame.K_DOWN:
+                    self.player.moving_down = True
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT:
                     self.player.moving_right = False
                 if event.key == pygame.K_LEFT:
                     self.player.moving_left = False
+                if event.key == pygame.K_UP:
+                    self.player.moving_up = False
+                if event.key == pygame.K_DOWN:
+                    self.player.moving_down = False
 
     def _update_screen(self):
         self.screen.fill(self.bg_color)
