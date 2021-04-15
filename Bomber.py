@@ -3,6 +3,7 @@ import pygame
 
 from settings import Settings
 from player import Player
+from map import Map
 
 class Bomber:
 
@@ -12,18 +13,22 @@ class Bomber:
 
         # surface
         self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
-        pygame.display.set_caption("Alien Invasion")
+        pygame.display.set_caption("Bomber")
         
         self.player = Player(self)
         # set background color:
         self.bg_color = self.settings.bg_color
 
+        self.screen_height = self.settings.screen_height
+
+        self.screen_width = self.settings.screen_width
 
     def run_game(self):
         while True:
             self._check_events()
             self.player.update()
             self._update_screen()
+
 
     def _check_events(self):
         for event in pygame.event.get(): # go through events since last call
@@ -39,6 +44,16 @@ class Bomber:
                     self.player.moving_right = False
                 if event.key == pygame.K_LEFT:
                     self.player.moving_left = False
+
+    def calc_map(self):
+        if self.screen_height > self.screen_width:
+            self.screen_width /= 11
+
+        elif self.screen_width > self.screen_height:
+            self.screen_height /= 11
+
+        elif self.screen_height ==self.screen_width:
+            self.screen_height /= 11
 
     def _update_screen(self):
         self.screen.fill(self.bg_color)
