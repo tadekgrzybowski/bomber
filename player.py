@@ -50,7 +50,7 @@ class Player():
             self.y -= self.settings.player_speed
             self.animate()
             
-        if self.moving_down:
+        if self.moving_down and self.rect.bottom <= self.screen_rect.bottom:
             self.y += self.settings.player_speed
             self.animate()
             
