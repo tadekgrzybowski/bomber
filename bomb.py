@@ -10,5 +10,5 @@ class Bomb(Sprite):
         self.rect.midtop = ai_game.player.rect.midtop
 
     def place_bomb(self):
-        pygame.draw.circle(self.screen, 0, self.rect.center, self.settings.bomb_radius)
+        pygame.draw.circle(self.screen, 0, self.rect.midbottom, self.settings.bomb_radius)
 

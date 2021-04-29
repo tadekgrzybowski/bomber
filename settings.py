@@ -11,4 +11,4 @@ class Settings():
         self.bomb_height = 9
         self.bomb_color = (60,60,60)
         self.max_bombs = 2
-        self.bomb_radius = 9
+        self.bomb_radius = 45
