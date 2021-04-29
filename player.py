@@ -19,9 +19,8 @@ class Player():
         self.moving_left = False
         self.moving_up = False
         self.moving_down = False
-        
-        
-        
+
+              
     def advance_image(self):
         if self.move_phase > 5:
             self.image = sprites[1]
@@ -35,28 +34,29 @@ class Player():
             self.move_phase = 0
         
         self.advance_image()
+
         
     def update(self):
-
             
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.x += self.settings.ship_speed
+            self.x += self.settings.player_speed
             self.animate()
             
         if self.moving_left and self.rect.left > 0:
-            self.x -= self.settings.ship_speed
+            self.x -= self.settings.player_speed
             self.animate()
             
         if self.moving_up and self.y > 0:
-            self.y -= self.settings.ship_speed
+            self.y -= self.settings.player_speed
             self.animate()
             
         if self.moving_down:
-            self.y += self.settings.ship_speed
+            self.y += self.settings.player_speed
             self.animate()
             
         self.rect.x = self.x
         self.rect.y = self.y
+
     def blitme(self):
         self.screen.blit(self.image, self.rect)
 
