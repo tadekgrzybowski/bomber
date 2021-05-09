@@ -9,6 +9,10 @@ class Settings():
         self.player_speed = 1
         self.bomb_width = 90
         self.bomb_height = 90
-        self.bomb_color = (60,60,60)
+        self.bomb_color = (96,96,96)
         self.max_bombs = 2
         self.bomb_radius = 45
+        self.color_1 = (200, 200, 200)
+        self.color_2 = (0, 0, 0)
+        self.row_width = self.screen_width / 11
+        self.col_width = self.screen_width / 11

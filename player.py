@@ -1,10 +1,12 @@
 import pygame
+from pygame.sprite import Sprite
 
 sprites = [ pygame.image.load('images/bomber1.bmp'), pygame.image.load('images/bomber2.bmp') ]
 
-class Player():
+class Player(Sprite):
     def __init__(self, ai_game):
-        """Initialize the ship and set its starting position."""
+        super().__init__()
+        pygame.sprite.Sprite.__init__(self)
         self.settings = ai_game.settings
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
