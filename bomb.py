@@ -12,5 +12,5 @@ class Bomb(Sprite):
 
     def place_bomb(self):
         if self.place:
-            pygame.draw.circle(self.screen, 0, self.rect.center, self.settings.bomb_radius)
-
+            #pygame.draw.circle(self.screen, 0, self.rect.center, self.settings.bomb_radius)
+            self.image = pygame.image.load("bomb1.bmp")
