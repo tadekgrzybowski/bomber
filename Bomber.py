@@ -5,6 +5,7 @@ from settings import Settings
 from player import Player
 from bomb import Bomb
 from map import Map, grid_list
+clock = pygame.time.Clock()
 
 map = ("map.csv")
 grid_list = []
@@ -43,6 +44,7 @@ class Bomber:
             self._check_events()
             self.player.update()
             self._update_screen()
+            clock.tick(10)
 
     def _generate_walls(self, map):
         wall = Map(self)
