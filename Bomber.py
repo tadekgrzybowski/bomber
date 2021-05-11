@@ -6,6 +6,8 @@ from player import Player
 from bomb import Bomb
 from map import Map, grid_list
 
+map = ("map.csv")
+grid_list = []
 
 class Bomber:
 
@@ -27,6 +29,12 @@ class Bomber:
         self.screen_width = self.settings.screen_width
         self.bombs = pygame.sprite.Group()
 
+        self.load_grid_from_file(map)
+
+        self.walls = pygame.sprite.Group()
+        self._generate_walls(grid_list)
+
+
         self.grid = grid_list
 
 
@@ -34,8 +42,19 @@ class Bomber:
         while True:
             self._check_events()
             self.player.update()
-            self.check_for_colisions()
             self._update_screen()
+
+    def _generate_walls(self, map):
+        wall = Map(self)
+        for i in range(len(map)):
+            for j in range(len(map[i])):
+                if map[i][j] == "1":
+                    wall = Map(self)
+                    wall.x = 90 * i
+                    wall.y = 90 * j
+                    wall.rect.x = wall.x
+                    wall.rect.y = wall.y
+                    self.walls.add(wall)
 
 
     def _check_events(self):
@@ -46,11 +65,11 @@ class Bomber:
                 if event.key == pygame.K_d:
                     self.player.moving_right = self._check_moving_right()
                 if event.key == pygame.K_a:
-                    self.player.moving_left = True
+                    self.player.moving_left = self._check_moving_left()
                 if event.key == pygame.K_w:
-                    self.player.moving_up = True
+                    self.player.moving_up = self._check_moving_up()
                 if event.key == pygame.K_s:
-                    self.player.moving_down = True
+                    self.player.moving_down = self._check_moving_down()
                 if event.key == pygame.K_SPACE:
                     self._place_bomb()
             elif event.type == pygame.KEYUP:
@@ -64,7 +83,45 @@ class Bomber:
                     self.player.moving_down = False
 
     def _check_moving_right(self):
-        if self.player.rect.right + self.settings.player_speed
+        rect_2 = self.player
+
+        rect_2.rect.right += self.settings.player_speed
+
+        if pygame.sprite.spritecollideany(rect_2, self.walls):
+            return False
+        else:
+            return True
+
+    def _check_moving_left(self):
+        rect_2 = self.player
+
+        rect_2.rect.left -= self.settings.player_speed
+
+        if pygame.sprite.spritecollideany(rect_2, self.walls):
+            return False
+        else:
+            return True
+
+    def _check_moving_up(self):
+        rect_2 = self.player
+
+        rect_2.rect.top -= self.settings.player_speed
+
+        if pygame.sprite.spritecollideany(rect_2, self.walls):
+            return False
+        else:
+            return True
+
+    def _check_moving_down(self):
+        rect_2 = self.player
+
+        rect_2.rect.bottom += self.settings.player_speed
+
+        if pygame.sprite.spritecollideany(rect_2, self.walls):
+            return False
+        else:
+            return True
+
 
     def _place_bomb(self):
         new_bomb = Bomb(self)
@@ -72,18 +129,27 @@ class Bomber:
             self.bombs.add(new_bomb)
 
     def check_for_colisions(self):
-        if pygame.sprite.spritecollide(self.player, self.map.walls, False):
+        if pygame.sprite.rect.colliderect(self.player, self.walls, False):
             print("a")
             print ("b")
+
+    def load_grid_from_file(self, name):
+        file = open(name)
+        for line in file:
+            x = line.replace('\n', '')
+            grid_list.append(self.split(x))
+
+    def split(self, word):
+        return [char for char in word]
 
 
     def _update_screen(self):
         self.screen.fill(self.bg_color)
         self.player.blitme()
+        self.walls.draw(self.screen)
         for bomb in self.bombs:
             bomb.place_bomb()
         Map.drawGrid(self)
-        Map.draw_walls(self, self.grid)
         # make the most recently drawn screen visible
         pygame.display.flip()
 

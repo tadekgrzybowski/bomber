@@ -8,11 +8,12 @@ class Map(Sprite):
         super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings
-        self.walls = pygame.sprite.Group()
         self.wall_num = 0
-        self.rect = (0,0, 90, 90)
+        self.image = pygame.image.load('images/wall2.bmp')
+        self.rect = self.image.get_rect()
+        self.rect.y = self.rect.height
 
-        Map.load_grid_from_file(self, "map.csv")
+
         Map.calc_walls(self, grid_list)
 
 
@@ -28,7 +29,6 @@ class Map(Sprite):
                 if map[i][I] == "1":
                     Map._group_walls(self)
                     Map.draw_block(self, i,I,"wall")
-
 
     def calc_walls(self, map):
         for col in range(len(map)):
@@ -46,12 +46,3 @@ class Map(Sprite):
             new_wall = Map(self)
             self.map.walls.add(new_wall)
 
-    def load_grid_from_file(self, name):
-        file = open(name)
-        for line in file:
-            x = line.replace('\n', '')
-            grid_list.append(Map.split(self, x))
-
-
-    def split(self, word):
-        return [char for char in word]
