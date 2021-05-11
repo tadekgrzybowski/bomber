@@ -43,6 +43,7 @@ class Bomber:
             self._check_events()
             self.player.update()
             self._update_screen()
+            self._check()
 
     def _generate_walls(self, map):
         wall = Map(self)
@@ -82,6 +83,12 @@ class Bomber:
                 if event.key == pygame.K_s:
                     self.player.moving_down = False
 
+    def _check(self):
+        self._check_moving_down()
+        self._check_moving_up()
+        self._check_moving_left()
+        self._check_moving_right()
+
     def _check_moving_right(self):
         rect_2 = self.player
 
@@ -118,6 +125,8 @@ class Bomber:
         rect_2.rect.bottom += self.settings.player_speed
 
         if pygame.sprite.spritecollideany(rect_2, self.walls):
+            return False
+        elif rect_2.rect.bottom > 990:
             return False
         else:
             return True
