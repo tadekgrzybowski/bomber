@@ -6,7 +6,7 @@ class Settings():
         self.screen_width = 990
         self.screen_height = 990
         self.bg_color = (115, 204, 0)
-        self.player_speed = 9
+        self.player_speed = 30
         self.bomb_width = 90
         self.bomb_height = 90
         self.bomb_color = (96,96,96)

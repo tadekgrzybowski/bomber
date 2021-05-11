@@ -51,10 +51,12 @@ class Player(Sprite):
         if self.moving_up and self.y > 0:
             self.y -= self.settings.player_speed
             self.animate()
+
             
         if self.moving_down and self.rect.bottom <= self.screen_rect.bottom:
             self.y += self.settings.player_speed
             self.animate()
+
             
         self.rect.x = self.x
         self.rect.y = self.y

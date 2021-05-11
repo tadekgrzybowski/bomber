@@ -5,6 +5,7 @@ from settings import Settings
 from player import Player
 from bomb import Bomb
 from map import Map, grid_list
+clock = pygame.time.Clock()
 
 map = ("map.csv")
 grid_list = []
@@ -34,7 +35,6 @@ class Bomber:
         self.walls = pygame.sprite.Group()
         self._generate_walls(grid_list)
 
-
         self.grid = grid_list
 
 
@@ -43,7 +43,8 @@ class Bomber:
             self._check_events()
             self.player.update()
             self._update_screen()
-            self._check()
+            clock.tick(10)
+
 
     def _generate_walls(self, map):
         wall = Map(self)
@@ -83,11 +84,7 @@ class Bomber:
                 if event.key == pygame.K_s:
                     self.player.moving_down = False
 
-    def _check(self):
-        self._check_moving_down()
-        self._check_moving_up()
-        self._check_moving_left()
-        self._check_moving_right()
+
 
     def _check_moving_right(self):
         rect_2 = self.player
