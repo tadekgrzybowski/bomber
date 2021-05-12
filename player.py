@@ -53,7 +53,7 @@ class Player(Sprite):
             self.animate()
 
             
-        if self.moving_down and self.rect.bottom <= self.screen_rect.bottom:
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
             self.y += self.settings.player_speed
             self.animate()
 
