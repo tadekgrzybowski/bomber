@@ -136,6 +136,7 @@ class Bomber:
             new_bomb.rect.center = self.player.rect.center
             self.bombs.add(new_bomb)
 
+
     def check_for_colisions(self):
         if pygame.sprite.rect.colliderect(self.player, self.walls, False):
             print("a")
