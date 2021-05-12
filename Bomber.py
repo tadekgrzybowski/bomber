@@ -127,6 +127,7 @@ class Bomber:
                     self.player.moving_down = self._check_moving_down()
                 if event.key == pygame.K_SPACE:
                     self._place_bomb()
+                    self.bomb_signal = True
                 if event.key == pygame.K_RIGHT:
                     self.enemy.moving_right = self._try_moving_right()
                 if event.key == pygame.K_LEFT:
@@ -135,7 +136,6 @@ class Bomber:
                     self.enemy.moving_up = self._try_moving_up()
                 if event.key == pygame.K_DOWN:
                     self.enemy.moving_down = self._try_moving_down()
-                    self.bomb_signal =True
 
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_d:
@@ -163,7 +163,7 @@ class Bomber:
 
         if pygame.sprite.spritecollideany(rect_2, self.walls):
             return False
-        elif pygame.sprite.sprtecolideany(rect_2, self.barrels):
+        elif pygame.sprite.spritecollideany(rect_2, self.barrels):
             return False
         else:
             return True
@@ -175,7 +175,7 @@ class Bomber:
 
         if pygame.sprite.spritecollideany(rect_2, self.walls):
             return False
-        elif pygame.sprite.sprtecolideany(rect_2, self.barrels):
+        elif pygame.sprite.spritecollideany(rect_2, self.barrels):
             return False
         else:
             return True
@@ -187,7 +187,7 @@ class Bomber:
 
         if pygame.sprite.spritecollideany(rect_2, self.walls):
             return False
-        elif pygame.sprite.sprtecolideany(rect_2, self.barrels):
+        elif pygame.sprite.spritecollideany(rect_2, self.barrels):
             return False
         else:
             return True
@@ -199,7 +199,7 @@ class Bomber:
 
         if pygame.sprite.spritecollideany(rect_2, self.walls):
             return False
-        elif pygame.sprite.sprtecolideany(rect_2, self.barrels):
+        elif pygame.sprite.spritecollideany(rect_2, self.barrels):
             return False
         else:
             return True
@@ -211,7 +211,7 @@ class Bomber:
 
         if pygame.sprite.spritecollideany(rect_2, self.walls):
             return False
-        elif pygame.sprite.sprtecolideany(rect_2, self.barrels):
+        elif pygame.sprite.spritecollideany(rect_2, self.barrels):
             return False
         else:
             return True
@@ -223,7 +223,7 @@ class Bomber:
 
         if pygame.sprite.spritecollideany(rect_2, self.walls):
             return False
-        elif pygame.sprite.sprtecolideany(rect_2, self.barrels):
+        elif pygame.sprite.spritecollideany(rect_2, self.barrels):
             return False
         else:
             return True
@@ -235,7 +235,7 @@ class Bomber:
 
         if pygame.sprite.spritecollideany(rect_2, self.walls):
             return False
-        elif pygame.sprite.sprtecolideany(rect_2, self.barrels):
+        elif pygame.sprite.spritecollideany(rect_2, self.barrels):
             return False
         else:
             return True
@@ -247,10 +247,11 @@ class Bomber:
 
         if pygame.sprite.spritecollideany(rect_2, self.walls):
             return False
-        elif pygame.sprite.sprtecolideany(rect_2, self.barrels):
+        elif pygame.sprite.spritecollideany(rect_2, self.barrels):
             return False
         else:
             return True
+
 
 
     def _place_bomb(self):
