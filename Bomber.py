@@ -22,6 +22,7 @@ class Bomber:
         
         self.player = Player(self)
         self.map = Map(self)
+        self.bomb = Bomb(self)
         # set background color:
         self.bg_color = self.settings.bg_color
 
@@ -132,6 +133,7 @@ class Bomber:
     def _place_bomb(self):
         new_bomb = Bomb(self)
         if len(self.bombs.sprites()) < self.settings.max_bombs:
+            new_bomb.rect.center = self.player.rect.center
             self.bombs.add(new_bomb)
 
     def check_for_colisions(self):
@@ -153,8 +155,8 @@ class Bomber:
         self.screen.fill(self.bg_color)
         self.player.blitme()
         self.walls.draw(self.screen)
-        for bomb in self.bombs:
-            bomb.place_bomb()
+        self.bombs.draw(self.screen)
+
         Map.drawGrid(self)
         # make the most recently drawn screen visible
         pygame.display.flip()
