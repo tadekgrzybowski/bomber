@@ -7,6 +7,7 @@ class Settings():
         self.screen_height = 990
         self.bg_color = (115, 204, 0)
         self.player_speed = 30
+        self.enemy_speed = 45
         self.bomb_width = 90
         self.bomb_height = 90
         self.bomb_color = (96,96,96)
