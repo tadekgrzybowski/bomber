@@ -59,7 +59,14 @@ class Bomber:
         self.blitme_explosion_signal = False
 
         self.new_bomb_rect = 0
-
+        
+    def end_check(self):
+        if pygame.sprite.collide_rect(self.enemy, self.player):
+            print("GAME OVER")
+            sys.exit()
+        elif pygame.sprite.collide_rect(self.enemy, self.bomb_explode):
+            print("YOU WON")
+            sys.exit()
 
     def run_game(self):
         while True:
@@ -70,6 +77,7 @@ class Bomber:
             self._bomb_calc()
             self._update_screen()
             self.check_for_destroyed_barrels()
+            self.end_check()
             clock.tick(10)
 
 
