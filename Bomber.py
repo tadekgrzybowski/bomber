@@ -64,7 +64,7 @@ class Bomber:
     def run_game(self):
         while True:
             self._check_events()
-            self.player.update()
+            self.player_update()
             self.enemy.update()
             self._update_screen()
             self._bomb_calc()
@@ -252,7 +252,26 @@ class Bomber:
         else:
             return True
 
+    def player_update(self):
 
+        if self.player.moving_right and self.player.rect.right < self.player.screen_rect.right and self._check_moving_right():
+            self.player.x += self.settings.player_speed
+            self.player.animate()
+
+        if self.player.moving_left and self.player.rect.left > 0 and self._check_moving_left():
+            self.player.x -= self.settings.player_speed
+            self.player.animate()
+
+        if self.player.moving_up and self.player.y > 0 and self._check_moving_up():
+            self.player.y -= self.settings.player_speed
+            self.player.animate()
+
+        if self.player.moving_down and self.player.rect.bottom < self.player.screen_rect.bottom and self._check_moving_down():
+            self.player.y += self.settings.player_speed
+            self.player.animate()
+
+        self.player.rect.x = self.player.x
+        self.player.rect.y = self.player.y
 
     def _place_bomb(self):
         new_bomb = Bomb(self)
