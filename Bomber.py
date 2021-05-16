@@ -8,6 +8,7 @@ from map import Map, grid_list
 from enemy import Enemy
 from barrels import Barrel
 from bomb_explode import Bomb_explode
+from scoreboard import Scoreboard
 
 clock = pygame.time.Clock()
 
@@ -64,15 +65,18 @@ class Bomber:
         if pygame.sprite.collide_rect(self.enemy, self.player):
             print("GAME OVER")
             sys.exit()
-        elif pygame.sprite.collide_rect(self.enemy, self.bomb_explode):
+        elif  pygame.sprite.spritecollide(self.enemy, self.bombs_explode, False):
             print("YOU WON")
+            sys.exit()
+        elif pygame.sprite.spritecollide(self.player, self.bombs_explode, False):
+            print ("GAME OVER")
             sys.exit()
 
     def run_game(self):
         while True:
             self._check_events()
             self.player_update()
-            self.enemy.update()
+            self.enemy_update()
             self._update_screen()
             self._bomb_calc()
             self._update_screen()
@@ -109,11 +113,11 @@ class Bomber:
     def _bomb_calc(self):
         if self.bomb_signal:
             self.bomb.tick()
-        if self.bomb.bomb_phase == 10:
+        if self.bomb.bomb_phase == 12:
             self.bombs.empty()
-        if self.bomb.bomb_phase > 10:
+        if self.bomb.bomb_phase > 12:
             self._place_bomb_explode()
-        if self.bomb.bomb_phase == 15:
+        if self.bomb.bomb_phase == 17:
             self.bomb.bomb_phase = 0
             self.bomb_signal = False
             self.bombs.empty()
@@ -281,6 +285,26 @@ class Bomber:
         self.player.rect.x = self.player.x
         self.player.rect.y = self.player.y
 
+    def enemy_update(self):
+        if self.enemy.moving_right and self.enemy.rect.right < self.enemy.screen_rect.right and self._try_moving_right():
+            self.enemy.x += self.settings.enemy_speed
+            self.enemy.animate()
+
+        if self.enemy.moving_left and self.enemy.rect.left > 0 and self._try_moving_left():
+            self.enemy.x -= self.settings.enemy_speed
+            self.enemy.animate()
+
+        if self.enemy.moving_up and self.enemy.y > 0 and self._try_moving_up():
+            self.enemy.y -= self.settings.enemy_speed
+            self.enemy.animate()
+
+        if self.enemy.moving_down and self.enemy.rect.bottom < self.enemy.screen_rect.bottom and self._try_moving_down():
+            self.enemy.y += self.settings.enemy_speed
+            self.enemy.animate()
+
+        self.enemy.rect.x = self.enemy.x
+        self.enemy.rect.y = self.enemy.y
+
     def _place_bomb(self):
         new_bomb = Bomb(self)
         if len(self.bombs.sprites()) < self.settings.max_bombs:
@@ -298,8 +322,6 @@ class Bomber:
 
     def check_for_destroyed_barrels(self):
         pygame.sprite.groupcollide(self.bombs_explode, self.barrels, False, True)
-
-        pygame.sprite.spritecollide(self.player, self.bombs_explode, False)
 
 
     def load_grid_from_file(self, name):

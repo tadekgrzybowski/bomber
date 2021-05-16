@@ -37,29 +37,7 @@ class Enemy(Sprite):
             self.move_phase = 0
         
         self.advance_image()
-           
-           
-    def update(self):
-        if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.x += self.settings.enemy_speed
-            self.animate()
-            
-        if self.moving_left and self.rect.left > 0:
-            self.x -= self.settings.enemy_speed
-            self.animate()
-            
-        if self.moving_up and self.y > 0:
-            self.y -= self.settings.enemy_speed
-            self.animate()
 
-            
-        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
-            self.y += self.settings.enemy_speed
-            self.animate()
-
-            
-        self.rect.x = self.x
-        self.rect.y = self.y
     
     def blitme(self):
         self.screen.blit(self.image, self.rect)

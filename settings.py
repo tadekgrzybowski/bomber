@@ -18,6 +18,9 @@ class Settings():
         self.row_width = self.screen_width / 11
         self.col_width = self.screen_width / 11
 
+        self.red_points = 0
+        self.blue_points = 0
+
         self.wall_types = {
             'wall': 1,
             'barell': 2,

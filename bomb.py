@@ -15,5 +15,5 @@ class Bomb(Sprite):
         
     def tick(self):
         self.bomb_phase += 1
-        if self.bomb_phase > 15:
+        if self.bomb_phase > 17:
             self.bomb_phase = 0
